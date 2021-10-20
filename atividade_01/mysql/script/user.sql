@@ -1,9 +1,3 @@
-CREATE USER IF NOT EXISTS 'petclinic'@'%' IDENTIFIED BY 'petclinic';
-
-CREATE DATABASE IF NOT EXISTS petclinic;
-
-ALTER DATABASE petclinic
-  DEFAULT CHARACTER SET utf8
-  DEFAULT COLLATE utf8_general_ci;
-
-GRANT ALL PRIVILEGES ON petclinic.* TO 'petclinic'@'%' IDENTIFIED BY 'petclinic';
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'rootAccess';
+GRANT ALL PRIVILEGES ON petclinic.* TO 'root'@'%' IDENTIFIED BY 'rootAccess';
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';

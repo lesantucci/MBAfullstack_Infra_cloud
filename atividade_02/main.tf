@@ -102,17 +102,6 @@ resource "azurerm_network_interface" "ni-mysql-fs" {
   }
 }
 
-resource "tls_private_key" "example_ssh" {
-    algorithm = "RSA"
-    rsa_bits = 4096
-}
-
-resource "local_file" "private_key" {
-  content         = tls_private_key.example_ssh.private_key_pem
-  filename        = "key.pem"
-  file_permission = "0600"
-}
-
 resource "azurerm_network_interface_security_group_association" "nisga-mysql-fs" {
   network_interface_id      = azurerm_network_interface.ni-mysql-fs.id
   network_security_group_id = azurerm_network_security_group.nsg-mysql-fs.id
@@ -128,7 +117,7 @@ resource "azurerm_virtual_machine" "vm-mysql-fs" {
   storage_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
+    sku       = "16.04-LTS"
     version   = "latest"
   }
 
@@ -141,7 +130,7 @@ resource "azurerm_virtual_machine" "vm-mysql-fs" {
 
   os_profile {
     computer_name  = "vm-mysql-fs"
-    admin_username = "testadmin"
+    admin_username = "azureuser"
     admin_password = "Password1234!"
   }
 
@@ -172,7 +161,7 @@ resource "null_resource" "upload_db" {
 
     connection {
       type = "ssh"
-      user = "testadmin"
+      user = "azureuser"
       password = "Password1234!"
       host = data.azurerm_public_ip.data-ip-mysql-fs.ip_address
     }
@@ -190,7 +179,7 @@ resource "null_resource" "deploy_db" {
   provisioner "remote-exec" {
     connection {
       type = "ssh"
-      user = "testadmin"
+      user = "azureuser"
       password = "Password1234!"
       host = data.azurerm_public_ip.data-ip-mysql-fs.ip_address
     }

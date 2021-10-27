@@ -1,2 +1,8 @@
 .vagrant
 *.log
+*.terraform.lock.hcl
+*.tfstate.backup
+*.tfstate
+*.terraform.tfstate
+*.terraform/
+*.terraform.tfstate.lock.info

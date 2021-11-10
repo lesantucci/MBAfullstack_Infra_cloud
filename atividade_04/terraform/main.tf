@@ -33,15 +33,16 @@ resource "azurerm_kubernetes_cluster" "aks-exercicio4-infra" {
   dns_prefix          = "aks-exercicio4-infra"
 
   default_node_pool {
-    name       = "default"
-    node_count = 2
-    vm_size    = "Standard_D2_v2"
+    name            = "default"
+    node_count      = 2
+    vm_size         = "Standard_D2_v2"
+    os_disk_size_gb = 30
   }
 
   # az ad sp create-for-rbac --skip-assignment
   service_principal {
-    client_id = "d683f84e-55fc-4028-bdb3-dcd6c74c85de"
-    client_secret = "V~S4TIOgtetC2PcM4D~E-5p4wU9NSMS0.T"
+    client_id = var.client
+    client_secret = var.secret
   }
 
   role_based_access_control {
@@ -60,7 +61,7 @@ resource "azurerm_kubernetes_cluster" "aks-exercicio4-infra" {
 }
 
 data "azuread_service_principal" "aks_principal" {
-  application_id = "d683f84e-55fc-4028-bdb3-dcd6c74c85de"
+  application_id = var.client
 }
 
 resource "azurerm_role_assignment" "acrpull-exercicio4-infra" {

@@ -1,0 +1,5 @@
+variable "client" {
+}
+
+variable "secret" {
+}

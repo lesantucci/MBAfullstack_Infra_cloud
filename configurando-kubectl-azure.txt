@@ -1,3 +1,4 @@
 az login
 # necessário terraform com a criacao da master aks
 az aks get-credentials --resource-group [name] --name[cluster-aks-name]
+az aks get-credentials --resource-group rg-exercicio4-infra --name aks-exercicio4-infra

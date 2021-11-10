@@ -1,0 +1,3 @@
+az login
+# necessário terraform com a criacao da master aks
+az aks get-credentials --resource-group [name] --name[cluster-aks-name]
